@@ -1,0 +1,10 @@
+body {
+	color: #113;
+}
+table {
+    border-collapse: collapse;
+}
+ 
+table th, table td {
+    padding: 2px;
+}
