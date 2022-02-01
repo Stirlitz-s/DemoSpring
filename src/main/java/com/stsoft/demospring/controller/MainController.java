@@ -12,12 +12,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+
+import javax.validation.Valid;
 
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -79,7 +82,10 @@ public class MainController {
 
     @PostMapping("/add")
     public String addTask(@AuthenticationPrincipal User user, @RequestParam("file") MultipartFile file,
-            @ModelAttribute Task task) throws IllegalStateException, IOException {
+            @Valid @ModelAttribute Task task, Errors errors) throws IllegalStateException, IOException {
+        if (errors.hasErrors()) {
+            return "redirect:/index";
+        }
         if (file != null  && !file.isEmpty()) {
             File uploadDir = new File(uploadPath);
             if (!uploadDir.exists()) {

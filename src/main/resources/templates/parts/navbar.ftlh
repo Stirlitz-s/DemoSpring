@@ -20,7 +20,7 @@
                     </li>
                 </#if>
             </ul>
-            <div class="navbar-text mr-3">${name}</div>
+            <div class="navbar-text ml-10">${name}</div>
                 <#if isUser><@l.logout /></#if>
         </div>
     </div>
